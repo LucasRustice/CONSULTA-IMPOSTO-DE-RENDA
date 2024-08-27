@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Imposto de Renda 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(34, 49, 63, 0.85);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #4fc3f7;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-container {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .input-container i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #90a4ae;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="email"] {
+            padding: 15px 15px 15px 40px;
+            width: calc(100% - 32px);
+            border: 1px solid #607d8b;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+            background: #263238;
+            color: #e0e0e0;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="email"]:focus {
+            border-color: #4fc3f7;
+            box-shadow: 0 0 8px rgba(79, 195, 247, 0.5);
+            outline: none;
+        }
+
+        button {
+            padding: 15px 25px;
+            background-color: #4fc3f7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #29b6f6;
+            transform: translateY(-2px);
+        }
+
+        .result,
+        .error,
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        .error {
+            color: #f44336;
+        }
+
+        .info {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .info h3 {
+            margin-bottom: 10px;
+            color: #b0bec5;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #b0bec5;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #b0bec5;
+        }
+
+        .link {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #4fc3f7;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-file-invoice-dollar"></i> Consulta de Imposto de Renda 2024</h2>
+        <div class="input-container">
+            <i class="fas fa-user"></i>
+            <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-user"></i>
+            <input type="text" id="mae" placeholder="Nome completo da mãe" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-user"></i>
+            <input type="text" id="pai" placeholder="Nome completo do pai" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-calendar-alt"></i>
+            <input type="date" id="dataNascimento" placeholder="Data de nascimento" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-id-card"></i>
+            <input type="text" id="cpf" placeholder="CPF (formato: 000.000.000-00)" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-id-card"></i>
+            <input type="text" id="rg" placeholder="RG (formato: 00.000.000-0)" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="E-mail" required>
+        </div>
+        <div class="input-container">
+            <i class="fas fa-money-bill-wave"></i>
+            <input type="text" id="rendaAnual" placeholder="Digite sua renda anual (use . para milhar e , para centavos)" required>
+        </div>
+        <div>
+            <label><strong><i class="fas fa-briefcase"></i> Você trabalhou registrado no último ano?</strong></label><br>
+            <input type="radio" id="sim" name="trabalhou" value="sim" required>
+            <label for="sim">Sim</label>
+            <input type="radio" id="nao" name="trabalhou" value="nao" required>
+            <label for="nao">Não</label><br>
+        </div>
+        <button onclick="calcularDeclaracao()"><i class="fas fa-search"></i> Verificar</button>
+        <div class="result" id="resultado"></div>
+        <div class="error" id="error"></div>
+        <div class="message" id="mensagem"></div>
+        <div class="link" id="linkRessarcimento"></div>
+
+        <div class="info">
+            <h3><i class="fas fa-info-circle"></i> Informações sobre o Imposto de Renda 2024</h3>
+            <p><strong>Quem deve declarar:</strong></p>
+            <ul>
+                <li>Renda anual superior a R$ 28.559,70.</li>
+                <li>Rendimentos isentos, não tributáveis ou tributados na fonte superiores a R$ 40.000,00.</li>
+                <li>Receita bruta superior a R$ 142.798,50 em atividade rural.</li>
+                <li>Bens ou direitos com valor total superior a R$ 300.000,00.</li>
+                <li>Operações em bolsas de valores e similares.</li>
+                <li>Residentes no Brasil durante o ano.</li>
+            </ul>
+            <p><strong>Faixas de Renda e Alíquotas:</strong></p>
+            <ul>
+                <li>Até R$ 2.112,00: Isento</li>
+                <li>De R$ 2.112,01 até R$ 3.141,00: 7,5%</li>
+                <li>De R$ 3.141,01 até R$ 4.218,00: 15%</li>
+                <li>De R$ 4.218,01 até R$ 5.300,00: 22,5%</li>
+                <li>Acima de R$ 5.300,00: 27,5%</li>
+            </ul>
+            <p><strong>Deduções Permitidas:</strong></p>
+            <ul>
+                <li>Dependentes: R$ 2.275,08 por dependente.</li>
+                <li>Educação: R$ 3.375,00 por pessoa.</li>
+                <li>Contribuições à Previdência Social: Total pago ao INSS.</li>
+                <li>Despesas Médicas: Sem limite.</li>
+                <li>Pensão Alimentícia: Pagamentos obrigatórios.</li>
+            </ul>
+            <p><strong>Prazos:</strong> A entrega da declaração geralmente ocorre entre março e abril de 2024.</p>
+            <p><strong>Multas:</strong> A não entrega pode resultar em multa de 1% ao mês sobre o imposto devido.</p>
+        </div>
+    </div>
+
+    <script>
+        function validarCampos() {
+            const nome = document.getElementById('nome').value;
+            const mae = document.getElementById('mae').value;
+            const pai = document.getElementById('pai').value;
+            const dataNascimento = document.getElementById('dataNascimento').value;
+            const cpf = document.getElementById('cpf').value;
+            const rg = document.getElementById('rg').value;
+            const email = document.getElementById('email').value;
+            const rendaAnualInput = document.getElementById('rendaAnual').value;
+            const rendaAnual = parseFloat(rendaAnualInput.replace('.', '').replace(',', '.'));
+
+            let errorMessage = '';
+
+            if (!nome) errorMessage += 'O nome completo é obrigatório.\n';
+            if (!mae) errorMessage += 'O nome completo da mãe é obrigatório.\n';
+            if (!pai) errorMessage += 'O nome completo do pai é obrigatório.\n';
+            if (!dataNascimento) errorMessage += 'A data de nascimento é obrigatória.\n';
+            if (!cpf || !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) errorMessage += 'O CPF deve ter o formato: 000.000.000-00.\n';
+            if (!rg || !/^\d{2}\.\d{3}\.\d{3}-\d{1}$/.test(rg)) errorMessage += 'O RG deve ter o formato: 00.000.000-0.\n';
+            if (!email || !/\S+@\S+\.\S+/.test(email)) errorMessage += 'O e-mail deve ser válido.\n';
+            if (isNaN(rendaAnual) || rendaAnual <= 0) errorMessage += 'A renda anual deve ser um número positivo, use um ponto para separar milhar e vírgula para separar centavos.\n';
+
+            return errorMessage;
+        }
+
+        function calcularDeclaracao() {
+            const errorDiv = document.getElementById('error');
+            errorDiv.innerText = '';
+
+            const resultadoDiv = document.getElementById('resultado');
+            const mensagemDiv = document.getElementById('mensagem');
+            const linkRessarcimento = document.getElementById('linkRessarcimento');
+
+            mensagemDiv.innerText = '';
+            linkRessarcimento.innerHTML = ''; // Limpar link anterior
+
+            const errorMessage = validarCampos();
+
+            if (errorMessage) {
+                errorDiv.innerText = errorMessage;
+                return;
+            }
+
+            const nome = document.getElementById('nome').value;
+            const rendaAnualInput = document.getElementById('rendaAnual').value;
+            const rendaAnual = parseFloat(rendaAnualInput.replace('.', '').replace(',', '.'));
+            const trabalhou = document.querySelector('input[name="trabalhou"]:checked').value;
+
+            let resultado = '';
+
+            if (rendaAnual > 28559.70) {
+                resultado = `${nome}, você deve declarar o imposto de renda.`;
+                if (trabalhou === 'sim') {
+                    resultado += ' Você pode precisar pagar imposto.';
+                } else {
+                    resultado += ' Você pode ter direito a restituição.';
+                }
+            } else {
+                resultado = `${nome}, você não precisa declarar o imposto de renda.`;
+            }
+
+            resultadoDiv.innerText = resultado;
+
+            // Adiciona link para o site do Gov.br
+            linkRessarcimento.innerHTML = `
+                Para mais informações sobre valores a serem ressarcidos, acesse: 
+                <a href="https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda" target="_blank">www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda</a>
+            `;
+
+            // Mensagem de agradecimento
+            mensagemDiv.innerText = "Obrigado pela sua consulta!";
+
+            // Botão para nova consulta
+            const novoBotao = document.createElement("button");
+            novoBotao.innerText = "Realizar nova consulta";
+            novoBotao.style.marginTop = "10px";
+            novoBotao.onclick = reiniciar;
+
+            mensagemDiv.appendChild(document.createElement("br"));
+            mensagemDiv.appendChild(novoBotao);
+        }
+
+        function reiniciar() {
+            document.getElementById('nome').value = '';
+            document.getElementById('mae').value = '';
+            document.getElementById('pai').value = '';
+            document.getElementById('dataNascimento').value = '';
+            document.getElementById('cpf').value = '';
+            document.getElementById('rg').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('rendaAnual').value = '';
+            document.getElementById('resultado').innerText = '';
+            document.getElementById('error').innerText = '';
+            document.getElementById('mensagem').innerText = '';
+            document.getElementById('linkRessarcimento').innerHTML = ''; // Limpar link
+            document.querySelector('input[name="trabalhou"]:checked').checked = false;
+        }
+    </script>
+</body>
+</html>
